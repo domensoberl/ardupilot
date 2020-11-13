@@ -75,6 +75,12 @@ void AP_Motors::set_radio_passthrough(float roll_input, float pitch_input, float
     _yaw_radio_passthrough = yaw_input;
 }
 
+void AP_Motors::set_pwm(uint8_t motor, uint16_t pwm)
+{
+    SRV_Channel::Aux_servo_function_t function = SRV_Channels::get_motor_function(motor - 1);
+    SRV_Channels::set_output_pwm(function, pwm);
+}
+
 /*
   write to an output channel
  */

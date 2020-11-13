@@ -1,0 +1,1 @@
+double qqcontrol_kinematics_timeToGoal(double x, double v, double v1, double ap, double an);

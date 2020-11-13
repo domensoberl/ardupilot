@@ -222,6 +222,7 @@ public:
     friend class ModeThrow;
     friend class ModeZigZag;
     friend class ModeAutorotate;
+    friend class ModeAIStabilize;
 
     Copter(void);
 
@@ -939,6 +940,7 @@ private:
     ModeStabilize_Heli mode_stabilize;
 #else
     ModeStabilize mode_stabilize;
+    ModeAIStabilize mode_aistabilize;
 #endif
 #if MODE_SPORT_ENABLED == ENABLED
     ModeSport mode_sport;
