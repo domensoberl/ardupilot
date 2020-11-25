@@ -174,6 +174,10 @@ bool GCS_MAVLINK::init(uint8_t instance)
         status->flags |= MAVLINK_STATUS_FLAG_OUT_MAVLINK1;
     }
 
+    raw_motor_request.pending = false;
+    for (int i = 0; i < 4; i++)
+        raw_motor_request.pwm[i] = 0;
+
     return true;
 }
 
@@ -3968,6 +3972,15 @@ MAV_RESULT GCS_MAVLINK::handle_command_long_packet(const mavlink_command_long_t 
 
     case MAV_CMD_FIXED_MAG_CAL_YAW:
         result = handle_fixed_mag_cal_yaw(packet);
+        break;
+
+    case MAV_CMD_DO_RAW_OUTPUT:
+        raw_motor_request.pwm[0] = uint16_t(packet.param1);
+        raw_motor_request.pwm[1] = uint16_t(packet.param2);
+        raw_motor_request.pwm[2] = uint16_t(packet.param3);
+        raw_motor_request.pwm[3] = uint16_t(packet.param4);
+        raw_motor_request.pending = true;
+        result = MAV_RESULT_ACCEPTED;
         break;
         
     default:

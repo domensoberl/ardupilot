@@ -37,6 +37,7 @@ public:
         SYSTEMID  =    25,  // System ID mode produces automated system identification signals in the controllers
         AUTOROTATE =   26,  // Autonomous autorotation
         AISTABILIZE =  27,  // Qualitative stabilization
+        RAW =          28   // Direct motor manipulation
     };
 
     // constructor
@@ -1604,4 +1605,26 @@ private:
 
     void init_qualitative_module();
     void qualitative_stabilization();
+};
+
+class ModeRaw : public Mode {
+
+public:
+    // inherit constructor
+    using Mode::Mode;
+
+    virtual bool init(bool ignore_checks) override;
+    virtual void run() override;
+
+    bool requires_GPS() const override { return false; }
+    bool has_manual_throttle() const override { return true; }
+    bool allows_arming(bool from_gcs) const override { return true; };
+    bool is_autopilot() const override { return false; }
+
+protected:
+    const char *name() const override { return "RAWMODE"; }
+    const char *name4() const override { return "RAWM"; }
+
+private:
+    uint16_t motor_pwm[4] = {0, 0, 0, 0};
 };

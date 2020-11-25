@@ -393,6 +393,8 @@ bool ModeAuto::start_command(const AP_Mission::Mission_Command& cmd)
         copter.logger.Write_Mission_Cmd(mission, cmd);
     }
 
+    hal.console->printf("MAV command: %d\n", cmd.id);
+
     switch(cmd.id) {
 
     ///
@@ -714,7 +716,7 @@ bool ModeAuto::verify_command(const AP_Mission::Mission_Command& cmd)
     case MAV_CMD_DO_WINCH:
         cmd_complete = true;
         break;
-
+        
     default:
         // error message
         gcs().send_text(MAV_SEVERITY_WARNING,"Skipping invalid cmd #%i",cmd.id);

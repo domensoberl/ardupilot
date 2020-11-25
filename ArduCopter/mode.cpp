@@ -172,7 +172,10 @@ Mode *Copter::mode_from_mode_num(const Mode::Number mode)
             ret = &mode_autorotate;
             break;
 #endif
-
+    case Mode::Number::RAW:
+        ret = &mode_raw;
+        break;
+        
         default:
             break;
     }

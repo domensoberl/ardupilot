@@ -223,6 +223,7 @@ public:
     friend class ModeZigZag;
     friend class ModeAutorotate;
     friend class ModeAIStabilize;
+    friend class ModeRaw;
 
     Copter(void);
 
@@ -969,6 +970,7 @@ private:
 #if MODE_AUTOROTATE_ENABLED == ENABLED
     ModeAutorotate mode_autorotate;
 #endif
+    ModeRaw mode_raw;
 
     // mode.cpp
     Mode *mode_from_mode_num(const Mode::Number mode);

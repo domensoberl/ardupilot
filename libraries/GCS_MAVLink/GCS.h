@@ -337,6 +337,12 @@ public:
 
     MAV_RESULT set_message_interval(uint32_t msg_id, int32_t interval_us);
 
+    bool raw_motor_request_pending() const { return raw_motor_request.pending; }
+    uint16_t *get_raw_motor_request() {
+        raw_motor_request.pending = false;
+        return &raw_motor_request.pwm[0];
+    }
+
 protected:
 
     virtual bool in_hil_mode() const { return false; }
@@ -846,6 +852,13 @@ private:
     uint32_t last_mavlink_stats_logged;
 
     uint8_t last_battery_status_idx;
+
+    typedef struct {
+        bool pending;
+        uint16_t pwm[4];
+    } raw_motor_values;
+
+    raw_motor_values raw_motor_request;
 
     // true if we should NOT do MAVLink on this port (usually because
     // someone's doing SERIAL_CONTROL over mavlink)

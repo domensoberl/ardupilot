@@ -2234,7 +2234,6 @@ const char *AP_Mission::Mission_Command::type() const
         return "MountControl";
     case MAV_CMD_DO_WINCH:
         return "Winch";
-
     default:
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
         AP_HAL::panic("Mission command with ID %u has no string", id);
